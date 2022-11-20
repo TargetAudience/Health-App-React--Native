@@ -1,0 +1,10 @@
+git_url("https://github.com/boomhealth/fastlane-match")
+
+storage_mode("git")
+
+type("development") # The default type
+
+app_identifier(["org.boomhealth.app"])
+
+team_id("P24TWXDU47") # Developer Portal Team ID
+

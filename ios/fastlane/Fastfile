@@ -1,0 +1,31 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  before_all do
+    ENV["FASTLANE_DONT_STORE_PASSWORD"] = "1"
+    ENV["FASTLANE_USER"] = "accounts@boom.health"
+    ENV["FASTLANE_PASSWORD"] = "hFXyJ&E2hN%muZc2"
+  end
+
+  desc "Push a new beta build to TestFlight"
+  lane :beta do  
+  	sync_code_signing(type: "appstore")
+    increment_build_number(xcodeproj: "boomhealth_app.xcodeproj")
+    build_app(workspace: "boomhealth_app.xcworkspace", scheme: "boomhealth_app")
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+  end
+end
